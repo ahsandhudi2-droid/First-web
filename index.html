@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHsan SHADOW // SYSTEM_BREACH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Matrix Canvas */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Binary Rain */
+        #binary-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .binary {
+            position: absolute;
+            font-size: 14px;
+            color: rgba(0, 255, 0, 0.3);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+        }
+
+        /* Logo Section - TOP */
+        .logo-section {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 20;
+        }
+
+        /* Hacker Logo */
+        .hacker-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hacker-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px #0f0) drop-shadow(0 0 20px #0f0);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* BIG NAME - AHSAN SHADOW */
+        .big-name {
+            font-size: 6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            position: relative;
+            text-shadow: 
+                0 0 10px #0f0,
+                0 0 20px #0f0,
+                0 0 40px #0f0,
+                0 0 80px #0f0;
+            animation: namePulse 2s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        .big-name::before {
+            content: 'AHsan SHADOW';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0f0, #00fffc, #fc00ff, #0f0);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+        @keyframes namePulse {
+            0%, 100% { 
+                text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 40px #0f0;
+                transform: scale(1);
+            }
+            50% { 
+                text-shadow: 0 0 20px #0f0, 0 0 40px #0f0, 0 0 80px #0f0, 0 0 120px #0f0;
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Subtitle under name */
+        .subtitle {
+            font-size: 1.2rem;
+            color: #00fffc;
+            letter-spacing: 5px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Glitch Title */
+        .glitch {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            margin-top: 40px;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                              0.025em 0.04em 0 #fffc00; }
+            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                               0.025em 0.04em 0 #fffc00; }
+            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                               -0.05em -0.05em 0 #fffc00; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                               -0.05em -0.05em 0 #fffc00; }
+            50% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                               0 -0.04em 0 #fffc00; }
+            99% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                               0 -0.04em 0 #fffc00; }
+            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                                -0.04em -0.025em 0 #fffc00; }
+        }
+
+        /* Terminal Box */
+        .terminal {
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #0f0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+
+        .dot:nth-child(2) { background: #ffbd2e; }
+        .dot:nth-child(3) { background: #27c93f; }
+
+        /* Typing Effect */
+        .typing-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #0f0;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #0f0; }
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-item {
+            color: #0f0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border: 1px solid #0f0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #0f0;
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .nav-item:hover::before {
+            left: 0;
+        }
+
+        .nav-item:hover {
+            color: #000;
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 20, 0, 0.95);
+            border-top: 1px solid #0f0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            z-index: 100;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #0f0;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .big-name { 
+                font-size: 3rem; 
+                letter-spacing: 5px;
+            }
+            .hacker-logo {
+                width: 70px;
+                height: 70px;
+            }
+            .glitch { font-size: 2rem; }
+            .typing-text { 
+                font-size: 1rem; 
+                white-space: normal; 
+                border: none; 
+            }
+            .logo-section {
+                top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Canvas -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Binary Rain -->
+    <div id="binary-container"></div>
+
+    <!-- Logo & Name Section - TOP -->
+    <div class="logo-section">
+        <!-- Hacker Anonymous Logo SVG -->
+        <div class="hacker-logo">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Hood -->
+                <path d="M20 40 Q50 10 80 40 L80 70 Q50 90 20 70 Z" fill="none" stroke="#0f0" stroke-width="3"/>
+                <!-- Face outline -->
+                <path d="M30 45 Q50 35 70 45 L70 65 Q50 75 30 65 Z" fill="none" stroke="#0f0" stroke-width="2"/>
+                <!-- Eyes -->
+                <ellipse cx="40" cy="55" rx="8" ry="5" fill="#0f0"/>
+                <ellipse cx="60" cy="55" rx="8" ry="5" fill="#0f0"/>
+                <!-- Question mark in middle -->
+                <text x="50" y="85" font-family="monospace" font-size="20" fill="#0f0" text-anchor="middle">?</text>
+                <!-- Circuit lines -->
+                <line x1="20" y1="40" x2="10" y2="30" stroke="#0f0" stroke-width="1"/>
+                <line x1="80" y1="40" x2="90" y2="30" stroke="#0f0" stroke-width="1"/>
+                <circle cx="10" cy="30" r="2" fill="#0f0"/>
+                <circle cx="90" cy="30" r="2" fill="#0f0"/>
+            </svg>
+        </div>
+
+        <!-- BIG NAME -->
+        <div class="big-name">AHsan SHADOW</div>
+        <div class="subtitle">// Elite Hacker //</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="glitch" data-text="SYSTEM_BREACH">SYSTEM_BREACH</h1>
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <span style="margin-left: 10px; opacity: 0.7;">root@ahsan-shadow:~# ./initiate_breach.sh</span>
+            </div>
+            
+            <div class="typing-text" id="type-text">
+                > Initializing secure connection... [OK]
+                > Bypassing firewall... [SUCCESS]
+                > Access granted. Welcome, AHsan.
+                > Identity: REDACTED | Location: UNKNOWN
+                > Skills: Full Stack | Security | AI/ML
+            </div>
+
+            <div class="nav-menu">
+                <a href="#" class="nav-item" onclick="hackEffect(this)">[ ./about.exe ]</a>
+                <a href="#" class="nav-item" onclick="hackEffect(this)">[ ./projects.dat ]</a>
+                <a href="#" class="nav-item" onclick="hackEffect(this)">[ ./skills.bin ]</a>
+                <a href="#" class="nav-item" onclick="hackEffect(this)">[ ./contact.enc ]</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-item">
+            <div class="pulse"></div>
+            <span>ENCRYPTED_CONNECTION_ACTIVE</span>
+        </div>
+        <div class="status-item">
+            <span id="clock">00:00:00</span>
+        </div>
+        <div class="status-item">
+            <span>IP: 192.168.X.XXX [MASKED]</span>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Binary Rain Effect
+        function createBinary() {
+            const binary = document.createElement('div');
+            binary.className = 'binary';
+            binary.style.left = Math.random() * 100 + 'vw';
+            binary.style.animationDuration = Math.random() * 3 + 2 + 's';
+            binary.textContent = Math.random() > 0.5 ? '1' : '0';
+            document.getElementById('binary-container').appendChild(binary);
+
+            setTimeout(() => binary.remove(), 5000);
+        }
+
+        setInterval(createBinary, 200);
+
+        // Live Clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = 
+                now.toLocaleTimeString('en-US', { hour12: false }) + ' UTC';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Hack Effect on Click
+        function hackEffect(element) {
+            const original = element.textContent;
+            const chars = '!<>-_\\/[]{}—=+*^?#________';
+            
+            let iteration = 0;
+            const interval = setInterval(() => {
+                element.textContent = original.split('')
+                    .map((letter, index) => {
+                        if (index < iteration) {
+                            return original[index];
+                        }
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join('');
+                
+                if (iteration >= original.length) {
+                    clearInterval(interval);
+                }
+                iteration += 1/3;
+            }, 30);
+        }
+
+        // Random glitch text update
+        const phrases = [
+            "SCANNING_PORTS...",
+            "ENCRYPTING_DATA...",
+            "BYPASSING_PROXY...",
+            "TRACE_ROUTE_HIDDEN...",
+            "ROOT_ACCESS_GRANTED..."
+        ];
+
+        setInterval(() => {
+            const glitch = document.querySelector('.glitch');
+            const random = phrases[Math.floor(Math.random() * phrases.length)];
+            glitch.setAttribute('data-text', random);
+            glitch.textContent = random;
+            setTimeout(() => {
+                glitch.setAttribute('data-text', 'SYSTEM_BREACH');
+                glitch.textContent = 'SYSTEM_BREACH';
+            }, 500);
+        }, 5000);
+    </script>
+</body>
+</html>
